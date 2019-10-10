@@ -42,24 +42,39 @@ using namespace std;
 class Solution {
    public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> result;
-        set<int> marked;
+        // sort method
+        // two pointer
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+
         for (int i = 0; i < nums.size(); i++) {
-            if (marked.find(i) != marked.end()) continue;
-            for (int j = i + 1; j < nums.size(); j++) {
-                if (marked.find(j) != marked.end()) continue;
-                for (int k = j + 1; k < nums.size(); k++) {
-                    if (marked.find(k) != marked.end()) continue;
-                    if (nums[i] + nums[j] + nums[k] == 0) {
-                        result.push_back(vector<int>{nums[i], nums[j], nums[k]});
-                        marked.insert(nums[i]);
-                        marked.insert(nums[j]);
-                        marked.insert(nums[k]);
-                    }
+            int target = -nums[i];
+            int front  = i + 1;
+            int back   = nums.size() - 1;
+
+            while (front < back) {
+                int sum = nums[front] + nums[back];
+
+                if (sum < target)
+                    front++;
+                else if (sum > target)
+                    back--;
+                else {
+                    vector<int> triplet(3, 0);
+                    triplet = {nums[i], nums[front], nums[back]};
+                    res.push_back(triplet);
+
+                    // Processing duplicates of Number 2
+                    while (front < back && nums[front] == triplet[1]) front++;
+                    // Processing duplicates of Number 3
+                    while (front < back && nums[back] == triplet[2]) back--;
                 }
             }
+
+            // Processing duplicates of Number 1
+            while (i < nums.size() - 1 && nums[i + 1] == nums[i]) i++;
         }
-        return result;
+        return res;
     }
 };
 // @lc code=end

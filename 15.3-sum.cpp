@@ -36,7 +36,6 @@
  */
 
 // @lc code=start
-#include <set>
 #include <vector>
 using namespace std;
 class Solution {

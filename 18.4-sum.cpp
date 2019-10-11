@@ -46,12 +46,15 @@ class Solution {
         vector<vector<int>> res;
         vector<int> sub(4);
 
+        int len = nums.size();
+        int end = nums.size()-1;
         sort(nums.begin(), nums.end());
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
+
+        for (int i = 0; i < len-3; i++) {
+            for (int j = i + 1; j < len-2; j++) {
                 int curTarget = target - nums[i] - nums[j];
                 int front     = j + 1;
-                int back      = nums.size() - 1;
+                int back      = end;
 
                 while (front < back) {
                     int curSum = nums[front] + nums[back];
@@ -64,9 +67,18 @@ class Solution {
                     else {
                         sub = {nums[i], nums[j], nums[front], nums[back]};
                         res.push_back(sub);
+
+                        // Processing duplicates of Number 3
+                        while (front < back && nums[front] == sub[2]) front++;
+                        // Processing duplicates of Number 4
+                        while (front < back && nums[back] == sub[3]) back--;
                     }
                 }
+                // Processing duplicates of Number 2
+                while (j < end && nums[j + 1] == nums[j]) j++;
             }
+            // Processing duplicates of Number 1
+            while (i < end && nums[i + 1] == nums[i]) i++;
         }
         return res;
     }

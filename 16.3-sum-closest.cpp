@@ -31,11 +31,35 @@
 #include <vector>
 using namespace std;
 class Solution {
-public:
+   public:
     int threeSumClosest(vector<int>& nums, int target) {
         sort(nums.begin(), nums.end());
-        
+        int closestSum  = INT_MAX;
+        int closestDiff = INT_MAX;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int front = i + 1;
+            int back  = nums.size() - 1;
+
+            while (front < back) {
+                int curSum  = nums[i] + nums[front] + nums[back];
+                int curDiff = target - curSum;
+                int absdiff = abs(curDiff);
+
+                if (absdiff < closestDiff) {
+                    closestSum  = curSum;
+                    closestDiff = absdiff;
+                }
+
+                if (curDiff > 0)
+                    front++;
+                else if (curDiff < 0)
+                    back--;
+                else
+                    return curSum;
+            }
+        }
+        return closestSum;
     }
 };
 // @lc code=end
-

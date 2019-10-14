@@ -31,13 +31,35 @@
  */
 
 // @lc code=start
+// https://www.youtube.com/watch?v=quAS1iydq7U
 #include <vector>
 using namespace std;
 class Solution {
-public:
+   public:
     void nextPermutation(vector<int>& nums) {
-        
+        int n = nums.size(), k, l;
+
+        // nd the largest index k such that a[k] < a[k + 1].
+        for (k = n - 2; k >= 0; k--) {
+            if (nums[k] < nums[k + 1]) {
+                break;
+            }
+        }
+        //If no such index exists, the permutation is the last permutation.
+        if (k < 0) {
+            reverse(nums.begin(), nums.end());
+        } else {
+            // Find the largest index l greater than k such that a[k] < a[l].
+            for (l = n - 1; l > k; l--) {
+                if (nums[l] > nums[k]) {
+                    break;
+                }
+            }
+            // The values of a[2] and a[3] are swapped to form the new sequence [1,2,4,3].
+            swap(nums[k], nums[l]);
+            // The sequence after k-index a[2] to the final element is reversed. 
+            reverse(nums.begin() + k + 1, nums.end());
+        }
     }
 };
 // @lc code=end
-

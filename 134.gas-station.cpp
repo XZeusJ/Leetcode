@@ -82,32 +82,17 @@ using namespace std;
 class Solution {
    public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int len = gas.size();
-        // form array which consist of (gas-cost)
-        vector<int> diff;
-        for (int i = 0; i < len; i++) {
-            diff.push_back(gas[i] - cost[i]);
-        }
+        int start(0), total(0), tank(0);
 
-        int res  = -1;
-        int tank = 0;
-        for (int i = 0; i < len; i++) {
-            if (diff[i] >= 0) {
-                res  = i;
+        for (int i = 0; i < gas.size(); i++) {
+            tank = tank + gas[i] - cost[i];
+            if (tank < 0) {
+                start = i + 1;
+                total += tank;
                 tank = 0;
-                for (int j = 0; j < len; j++) {
-                    tank += diff[res % len];
-                    res++;
-                    if (tank < 0) {
-                        res = -1;
-                        break;
-                    }
-                }
-                if (res != -1)
-                    return res % len;
             }
         }
-        return res;
+        return total + tank < 0 ? -1 : start;
     }
 };
 // @lc code=end

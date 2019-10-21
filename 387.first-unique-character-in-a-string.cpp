@@ -33,23 +33,23 @@
  */
 
 // @lc code=start
+#include <bitset>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 class Solution {
    public:
     int firstUniqChar(string s) {
-        if (s.size() == 1) return 0;
-        unordered_set<char> c_set;
-
-        int res = __INT_MAX__;
-        for (int i = s.size() - 1; i >= 0; i--) {
-            if (c_set.find(s[i]) == c_set.end()) {
-                c_set.insert(s[i]);
-                res = i;
-            }
+        vector<int> freq(26);
+        for (char &c : s) {
+            freq[c - 'a']++;
         }
-        if (c_set.size() == s.size())
-            return -1;
-        else
-            return res;
+        for (int i = 0; i < s.size(); i++) {
+            if (freq[s[i] - 'a'] == 1) return i;
+        }
+        return -1;
+        
     }
 };
 // @lc code=end

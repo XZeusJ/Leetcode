@@ -62,11 +62,11 @@
  */
 
 // @lc code=start
+#include <iostream>
+#include <iterator>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream> 
-#include <iterator> 
-#include <iostream> 
 using namespace std;
 
 class Solution {
@@ -76,26 +76,23 @@ class Solution {
         s.erase(0, s.find_first_not_of(' '));  //prefixing spaces
         s.erase(s.find_last_not_of(' ') + 1);  //surfixing spaces
 
-        vector<string> strs;
-        // s to word vector with reversed sequence
-        string word = "";
-        auto it     = strs.begin();
+        // s to word vector
+        std::regex ws_re("\\s+");  // whitespace
+        std::vector<std::string> strs(std::sregex_token_iterator(s.begin(), s.end(), ws_re, -1), std::sregex_token_iterator());
 
-        for (auto x : s) {
-            if (x == ' ') {
-                strs.insert(it, word);
-                word = "";
-            } else {
-                word = word + x;
-            }
+        // reverse
+        int i = 0, j = strs.size() - 1;
+        while (i < j) {
+            swap(strs[i++], strs[j--]);
         }
-        strs.insert(it, word);
 
         // word vector to string
         ostringstream vts;
 
         if (!strs.empty()) {
-            copy(strs.begin(), strs.end(), ostream_iterator<string>(vts, " "));
+            copy(strs.begin(), strs.end() - 1, ostream_iterator<string>(vts, " "));
+            // Now add the last element with no delimiter
+            vts << strs.back();
         }
         return vts.str();
     }

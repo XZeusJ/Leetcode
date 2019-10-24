@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "205.isomorphic-strings.cpp"
+// #include "290.word-pattern.cpp"
 
 using namespace std;
 
@@ -15,8 +15,22 @@ int main() {
     // cout << endl;
 
     vector<int> x = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    string s = "ab";
-    string t = "aa";
+    string s      = "abba";
+    string t      = "dog cat cat fish";
 
-    cout << Solution().isIsomorphic(s, t) << endl;
+    // cout << Solution().wordPattern(s, t) << endl;
+
+    int j = 0;
+    for (int i = 0; i < s.size(); i++) {
+        string word = "";
+        while (j < t.size()) {
+            if (t[j] != ' ')
+                word = word + t[j++];
+            else {
+                j++;
+                break;
+            }
+        }
+        cout << word << endl;
+    }
 }

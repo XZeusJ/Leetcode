@@ -15,22 +15,14 @@ int main() {
     // cout << endl;
 
     vector<int> x = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    string s      = "abba";
-    string t      = "dog cat cat fish";
+    string s      = "anagram";
+    string t      = "nagaram";
 
     // cout << Solution().wordPattern(s, t) << endl;
 
-    int j = 0;
+    int res=0;
     for (int i = 0; i < s.size(); i++) {
-        string word = "";
-        while (j < t.size()) {
-            if (t[j] != ' ')
-                word = word + t[j++];
-            else {
-                j++;
-                break;
-            }
-        }
-        cout << word << endl;
+        res += s[i] - t[i];
     }
+    cout << !res << endl;
 }

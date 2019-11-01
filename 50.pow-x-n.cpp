@@ -50,19 +50,13 @@
 class Solution {
    public:
     double myPow(double x, int n) {
-        if (x == 0) return 0;
+        if(n < 0) return 1 / x * myPow(1 / x, -(n + 1));
         if (n == 0) return 1;
-        int signx = x > 0 ? 1 : -1;
-        int signn = n > 0 ? 1 : -1;
-        bool
-
-            double res = 1;
-        while (n > 0) {
-            res *= x;
-            n--;
-        }
-
-        res return n > 0 ? res : (double)1 / res;
+        if (n == 2) return x * x;
+        if (n % 2 == 0)
+            return myPow(myPow(x, n / 2), 2);
+        else
+            return x * myPow(myPow(x, n / 2), 2);
     }
 };
 // @lc code=end

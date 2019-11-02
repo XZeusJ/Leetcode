@@ -6,16 +6,23 @@
 
 // @lc code=start
 class Solution {
-   public:
-    vector<int> twoSum(vector<int> &nums, int target) {
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
-                if (nums[j] == target - nums[i]) {
-                    return vector<int>{i, j};
-                }
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> hash;
+        vector<int> result;
+        
+        for (int i = 0;i<nums.size();i++) {
+            auto numberToFind = target - nums[i];
+            
+            if (hash.find(numberToFind) != hash.end()) {
+                result.push_back(hash[numberToFind]);
+                result.push_back(i);
+                return result;
             }
+            
+            hash[nums[i]] = i;
         }
-        throw std::invalid_argument("No two sum solution");
+        return result;
     }
-}
+};
 // @lc code=end

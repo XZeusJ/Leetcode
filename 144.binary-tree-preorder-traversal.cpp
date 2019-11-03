@@ -44,14 +44,19 @@
  */
 class Solution {
    public:
-    vector<int> res;
-
     vector<int> preorderTraversal(TreeNode* root) {
         if (root == NULL) return vector<int>();
 
-        res.push_back(root->val);
-        if (root->left) preorderTraversal(root->left);
-        if (root->right) preorderTraversal(root->right);
+        vector<int> res;
+        stack<TreeNode*> treeStack;
+        treeStack.push(root);
+        while (!treeStack.empty()) {
+            TreeNode* tmp = treeStack.top();
+            res.push_back(tmp->val);
+            treeStack.pop();
+            if (tmp->right) treeStack.push(tmp->right);
+            if (tmp->left) treeStack.push(tmp->left);
+        }
 
         return res;
     }

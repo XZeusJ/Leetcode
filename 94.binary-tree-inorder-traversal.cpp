@@ -42,10 +42,25 @@
  * };
  */
 class Solution {
-public:
+   public:
     vector<int> inorderTraversal(TreeNode* root) {
-        
+        vector<int> res;
+        stack<TreeNode*> treeStack;
+
+        while (root || !treeStack.empty()) {
+            while (root) {
+                treeStack.push(root);
+                root = root->left;
+            }
+
+            root = treeStack.top();
+            treeStack.pop();
+            res.push_back(root->val);
+
+            root = root->right;
+        }
+
+        return res;
     }
 };
 // @lc code=end
-

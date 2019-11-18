@@ -42,15 +42,13 @@
 using namespace std;
 
 class Solution {
-   public:
+public:
     int hIndex(vector<int>& citations) {
-        sort(citations.begin(), citations.end());
-        int res = 0;
-        int n   = citations.size();
-        for (int i = n - 1; i >= 0; i--) {
-            res = max(res, min(n - i, citations[i]));
+        sort(citations.begin(), citations.end(), greater<int>());
+        for (int i = 0; i < citations.size(); ++i) {
+            if (i >= citations[i]) return i;
         }
-        return res;
+        return citations.size();
     }
 };
 // @lc code=end

@@ -46,24 +46,25 @@ public:
         // 1. diff length
         // 2. only 0
         // 3. highest carry
-        int curNum = 0, carry = 0, digit = 0;
-        ListNode* res, head;
-        head = res;
+        ListNode *dummyHead = new ListNode(0);
+        ListNode *p = l1, *q = l2, *curr = dummyHead;
+        int carry = 0;
         
-        while (l1 || l2) {
-            if (l1 && l2) curNum = l1->val + l2->val;
-            else if (l1) curNum = l1->val;
-            else curNum = l2->val;
-            curNum += carry
-            digit = curNum % 10;
-            
-            res->val = digit;
-            res = res->next;
-                        
-            carry = curNum / 10;
+        while (p || q) {
+            int x = p ? p->val : 0;
+            int y = q ? q->val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr->next = new ListNode(sum % 10);
+            curr = curr->next;
+            if (p) p = p->next;
+            if (q) q = q->next;
         }
-        
-        return head;
+        if (carry > 0) {
+            curr->next = new ListNode(carry);
+        }
+        return dummyHead->next;
+
     }
 };
 // @lc code=end

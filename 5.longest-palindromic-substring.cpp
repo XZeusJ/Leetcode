@@ -35,10 +35,31 @@
 
 // @lc code=start
 class Solution {
-public:
-    string longestPalindrome(string s) {
-        
+   public:
+    string longestPalindrome(string s) {  // 中心扩散算法
+        if (s.size() < 2) return s;
+        int n = s.size(), start = 0, len = 0, maxLen = 0;
+        for (int i = 0; i < n; i++) {
+            // for case of odd length
+            int len1 = searchPalindrome(s, i, i);
+            // for case of even length
+            int len2 = searchPalindrome(s, i, i + 1);
+
+            len = max(len1, len2);
+            if (len > maxLen) {
+                start  = i - (len - 1) / 2;
+                maxLen = len;
+            }
+        }
+        return s.substr(start, maxLen);
+    }
+
+    int searchPalindrome(string s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            --left;
+            ++right;
+        }
+        return right - left - 1;
     }
 };
 // @lc code=end
-

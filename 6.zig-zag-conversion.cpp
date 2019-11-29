@@ -58,7 +58,8 @@ class Solution {
     string convert(string s, int numRows) {
         if (numRows == 1) return s;
 
-        vector<string> rows(min(numRows, int(s.size())));
+        vector<string> rows(min(numRows, int(s.size())));  // determine rows
+        string ret;
         int curRow     = 0;
         bool goingDown = false;
 
@@ -68,7 +69,6 @@ class Solution {
             curRow += goingDown ? 1 : -1;
         }
 
-        string ret;
         for (auto row : rows) ret += row;
         return ret;
     }

@@ -90,19 +90,21 @@
 class Solution {
    public:
     int myAtoi(string str) {
-        long long int ret = 0;
-        int indicator     = 1;
+        int res = 0, i = 0, len = str.size();
+        int indicator = 1;
 
-        int i = str.find_first_not_of(' ');
+        //int i = str.find_first_not_of(' ');
+        while (i < len && str[i] == ' ') i++;
         if (i == -1) return 0;
         if (str[i] == '-' || str[i] == '+')
             indicator = (str[i++] == '-') ? -1 : 1;
         while ('0' <= str[i] && str[i] <= '9') {
-            ret = ret * 10 + (str[i++] - '0');
-            if (ret * indicator >= INT_MAX) return INT_MAX;
-            if (ret * indicator <= INT_MIN) return INT_MIN;
+            if (res > INT_MAX / 10 || (res == INT_MAX / 10 && str[i] - '0' > 7)) {
+                return (indicator == 1) ? INT_MAX : INT_MIN;
+            }
+            res = res * 10 + (str[i++] - '0');
         }
-        return ret * indicator;
+        return res * indicator;
     }
 };
 // @lc code=end

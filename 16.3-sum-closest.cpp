@@ -37,23 +37,22 @@ class Solution {
         int closestSum  = INT_MAX;
         int closestDiff = INT_MAX;
 
-        for (int i = 0; i < nums.size(); i++) {
+        for (int i = 0; i < nums.size() - 2; i++) {
             int front = i + 1;
             int back  = nums.size() - 1;
 
             while (front < back) {
                 int curSum  = nums[i] + nums[front] + nums[back];
-                int curDiff = target - curSum;
-                int absdiff = abs(curDiff);
+                int absdiff = abs(target - curSum);
 
                 if (absdiff < closestDiff) {
                     closestSum  = curSum;
                     closestDiff = absdiff;
                 }
 
-                if (curDiff > 0)
+                if (curSum < target)
                     front++;
-                else if (curDiff < 0)
+                else if (curSum > target)
                     back--;
                 else
                     return curSum;

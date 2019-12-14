@@ -47,11 +47,11 @@ class Solution {
         vector<int> sub(4);
 
         int len = nums.size();
-        int end = nums.size()-1;
+        int end = nums.size() - 1;
         sort(nums.begin(), nums.end());
 
-        for (int i = 0; i < len-3; i++) {
-            for (int j = i + 1; j < len-2; j++) {
+        for (int i = 0; i < len - 3; i++) {
+            for (int j = i + 1; j < len - 2; j++) {
                 int curTarget = target - nums[i] - nums[j];
                 int front     = j + 1;
                 int back      = end;

@@ -64,10 +64,22 @@
 
 // @lc code=start
 class Solution {
-public:
+   public:
     bool isValid(string s) {
-        
+        stack<char> parentheses;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(' || s[i] == '[' || s[i] == '{')
+                parentheses.push(s[i]);
+            else {
+                if (parentheses.empty()) return false;
+                char top = parentheses.top();
+                if (s[i] == ')' && top != '(') return false;
+                if (s[i] == ']' && top != '[') return false;
+                if (s[i] == '}' && top != '{') return false;
+                parentheses.pop();
+            }
+        }
+        return parentheses.empty();
     }
 };
 // @lc code=end
-

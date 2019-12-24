@@ -48,23 +48,14 @@ using namespace std;
 class Solution {
    public:
     int strStr(string haystack, string needle) {
-        int i, M = haystack.size();
-        int j, N = needle.size();
-
-        if (N == 0) return 0;
-
-        for (i = 0, j = 0; i < M && j < N; i++) {
-            if (haystack[i] == needle[j])
-                j++;
-            else {
-                i -= j;
-                j = 0;
+        for (int i = 0; ; ++i) {
+            for (int j = 0; ; ++j) {
+                if (j == needle.size()) return i;
+                if (i + j == haystack.size()) return -1;
+                if (needle[j] != haystack[i + j]) break;
             }
         }
-        if (j == N)
-            return i - N;
-        else
-            return -1;
+        return -1;
     }
 };
 // @lc code=end

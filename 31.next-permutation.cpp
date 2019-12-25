@@ -37,29 +37,18 @@ using namespace std;
 class Solution {
    public:
     void nextPermutation(vector<int>& nums) {
-        int n = nums.size(), k, l;
-
-        // nd the largest index k such that a[k] < a[k + 1].
-        for (k = n - 2; k >= 0; k--) {
-            if (nums[k] < nums[k + 1]) {
-                break;
-            }
-        }
-        //If no such index exists, the permutation is the last permutation.
-        if (k < 0) {
-            reverse(nums.begin(), nums.end());
-        } else {
-            // Find the largest index l greater than k such that a[k] < a[l].
-            for (l = n - 1; l > k; l--) {
-                if (nums[l] > nums[k]) {
-                    break;
+        int i, j, n = nums.size();
+        for (i = n - 2; i >= 0; i--) {
+            if (nums[i + 1] > nums[i]) {
+                for (j = n - 1; j > i; j--) {
+                    if (nums[j] > nums[i]) break;
                 }
+                swap(nums[i], nums[j]);
+                reverse(nums.begin() + i + 1, nums.end());
+                return;
             }
-            // The values of a[2] and a[3] are swapped to form the new sequence [1,2,4,3].
-            swap(nums[k], nums[l]);
-            // The sequence after k-index a[2] to the final element is reversed. 
-            reverse(nums.begin() + k + 1, nums.end());
         }
+        reverse(nums.begin(), nums.end());
     }
 };
 // @lc code=end

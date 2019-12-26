@@ -36,10 +36,28 @@
 
 // @lc code=start
 class Solution {
-public:
+   public:
     int longestValidParentheses(string s) {
-        
+        int start = 0, res = 0;
+        int len = s.size();
+
+        stack<int> st;
+        for (int i = 0; i < len; i++) {
+            if (s[i] == '(')
+                st.push(i);
+            else if (s[i] == ')') {
+                if (st.empty())
+                    start = i + 1;
+                else {
+                    st.pop();
+                    if (st.empty())
+                        res = max(res, i - start + 1);
+                    else
+                        res = max(res, i - st.top());
+                }
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
-

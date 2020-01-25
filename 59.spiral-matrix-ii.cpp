@@ -38,11 +38,11 @@ class Solution {
         vector<vector<int>> res(n, vector<int>(n));
         int num = 1, tar = n * n;
         while (num <= tar) {
-            for (int i = 1; i <= r; i++) res[u][i] = num++;  // left to right.
+            for (int i = l; i <= r; i++) res[u][i] = num++;  // left to right.
             u++;
             for (int i = u; i <= d; i++) res[i][r] = num++;  // top to bottom.
             r--;
-            for (int i = r; i >= 1; i--) res[d][i] = num++;  // right to left.
+            for (int i = r; i >= l; i--) res[d][i] = num++;  // right to left.
             d--;
             for (int i = d; i >= u; i--) res[i][l] = num++;  // bottom to top.
             l++;

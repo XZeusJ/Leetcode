@@ -54,10 +54,45 @@
 
 // @lc code=start
 class Solution {
-public:
+   private:
+    bool helper(vector<bool>& vis, vector<int>& result, int& no, int target) {
+        if (result.size() == vis.size()) {
+            // boundry case
+            if (++no == target) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < vis.size(); i++) {
+            // choose unvisited number each turn
+            if (vis[i]) continue;
+            // choose current numbet
+            vis[i] = true;
+            result.push_back(i + 1);
+            // solve sub-problem by recursion
+            bool next = helper(vis, result, no, target);
+            if (next) return true;
+            // reform context when backtrack former problem
+            result.pop_back();
+            vis[i] = false;
+        }
+        return false;
+    }
+
+   public:
     string getPermutation(int n, int k) {
-        
+        vector<bool> vis(n, false);
+        vector<int> result;
+        int no = 0;
+        helper(vis, result, no, k);
+
+        string ans;
+        for (auto n : result) {
+            ans += to_string(n);
+        }
+        return ans;
     }
 };
 // @lc code=end
-

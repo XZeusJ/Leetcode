@@ -49,16 +49,22 @@
  * };
  */
 class Solution {
-public:
+   public:
     ListNode* rotateRight(ListNode* head, int k) {
-
         ListNode* cur = head;
-        int size = 0;
-        while (cur) {
+        int size      = 1;
+        while (cur->next) {
             size++;
             cur = cur->next;
         }
+        cur->next = head;  // make a circal list
+        int m     = size - k % size;
+        for (int i = 0; i < m; i++) {
+            cur = cur->next;
+        }
+        ListNode* newHead = cur->next;
+        cur->next         = NULL;
+        return newHead;
     }
 };
 // @lc code=end
-

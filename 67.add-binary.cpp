@@ -35,24 +35,16 @@
 class Solution {
    public:
     string addBinary(string a, string b) {
-        int apos      = a.size() - 1;
-        int bpos      = b.size() - 1;
-        int adigit, bdigit, carry = 0;
-
-        string result = "";
-        while (apos >= 0 || bpos >= 0 || carry == 1) {
-            adigit = bdigit = 0;
-
-            if (apos >= 0) adigit = a[apos--] == '1';
-            if (bpos >= 0) bdigit = b[bpos--] == '1';
-
-            // Another way: the digit is 1 if adigit + bdigit + carry == 1 or == 3, but I noticed that
-            // XOR is more concise:
-            result = static_cast<char>(adigit ^ bdigit ^ carry + '0') + result;
-            carry  = adigit + bdigit + carry >= 2;
+        string res = "";
+        int m = a.size() - 1, n = b.size() - 1, carry = 0;
+        while (m >= 0 || n >= 0) {
+            int p   = m >= 0 ? a[m--] - '0' : 0;
+            int q   = n >= 0 ? b[n--] - '0' : 0;
+            int sum = p + q + carry;
+            res     = to_string(sum % 2) + res;
+            carry   = sum / 2;
         }
-
-        return result;
+        return carry == 1 ? "1" + res : res;
     }
 };
 // @lc code=end

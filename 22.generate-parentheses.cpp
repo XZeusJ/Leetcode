@@ -37,18 +37,22 @@ class Solution {
    public:
     vector<string> generateParenthesis(int n) {
         vector<string> res;
-        generateParenthesisDFS(n, n, "", res);
+        dfs(n, n, "", res);
         return res;
     }
 
-    void generateParenthesisDFS(int left, int right, string out, vector<string> &res) {
-        if (left > right) return;
-        if (left == 0 && right == 0)
+    void dfs(int left, int right, string out, vector<string> &res) {
+        // 因为每一次尝试, 都是用新的字符串变量, 所以无需回溯
+        // 在递归终止的时候, 直接把它添加到结果集里即可, 注意与46, 39题进行区分
+        if (left == 0 && right == 0) {
             res.push_back(out);
-        else {
-            if (left > 0) generateParenthesisDFS(left - 1, right, out + "(", res);
-            if (right > 0) generateParenthesisDFS(left, right - 1, out + ")", res);
+            return;
         }
+
+        if (left > right) return;  // 剪枝 (当左括号可以使用的个数严格大于右括号可以使用的个数, 才进行剪枝)
+
+        if (left > 0) dfs(left - 1, right, out + "(", res);
+        if (right > 0) dfs(left, right - 1, out + ")", res);
     }
 };
 // @lc code=end

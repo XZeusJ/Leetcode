@@ -48,15 +48,18 @@ class Solution {
         stack<TreeNode*> treeStack;
 
         while (root || !treeStack.empty()) {
+            // 把左子树压入栈中
             while (root) {
                 treeStack.push(root);
                 root = root->left;
             }
 
+            // 输出栈顶元素
             root = treeStack.top();
             treeStack.pop();
             res.push_back(root->val);
 
+            // 看右子树
             root = root->right;
         }
 

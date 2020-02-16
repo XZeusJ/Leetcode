@@ -48,7 +48,13 @@
 class Solution {
    public:
     int maxDepth(TreeNode* root) {
-        return !root ? 0 : max(maxDepth(root->left), maxDepth(root->right)) + 1;
+        if (root == NULL) {
+            return 0;
+        } else {
+            int leftHeight  = maxDepth(root->left);
+            int rightHeight = maxDepth(root->right);
+            return max(leftHeight, rightHeight) + 1;
+        }
     }
 };
 // @lc code=end

@@ -52,6 +52,7 @@
 class Solution {
    public:
     vector<vector<int>> levelOrder(TreeNode* root) {
+        // bfs 广度优先遍历
         vector<vector<int>> result;
         queue<TreeNode*> q;
         q.push(root);

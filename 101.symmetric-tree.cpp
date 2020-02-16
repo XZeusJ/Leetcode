@@ -56,16 +56,17 @@
  * };
  */
 class Solution {
-public:
+   public:
     bool isSymmetric(TreeNode* root) {
-        return !root || is(root->left, root->right);
+        return is(root, root);
     }
-    
+
     bool is(TreeNode* p, TreeNode* q) {
-        if (!p && !q) return true;
-        if (!p || !q) return false;
-        return p->val == q->val && is(p->left, q->right) && is(p->right, q->left);
+        if (p == NULL && q == NULL) return true;
+        if (p == NULL || q == NULL) return false;
+        return p->val == q->val 
+            && is(p->left, q->right) 
+            && is(p->right, q->left);
     }
 };
 // @lc code=end
-

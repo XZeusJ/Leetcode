@@ -49,7 +49,7 @@ class Solution {
    public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         if (inorder.size() == 0) return NULL;
-        TreeNode* root = TreeNode(preorder[0]);
+        TreeNode* root = new TreeNode(preorder[0]);
 
         // i指向中序序列中当前子树根结点的位置
         int i = 0;

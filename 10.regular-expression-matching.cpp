@@ -88,15 +88,51 @@
 class Solution {
    public:
     bool isMatch(string s, string p) {
-        if (p.empty()) return s.empty();
-        bool first_match = (!s.empty()) && (s[0] == p[0] || p[0] == '.');
+        // if (p.empty()) return s.empty();
+        // bool first_match = (!s.empty()) && (s[0] == p[0] || p[0] == '.');
 
-        if (p.size() >= 2 && p[1] == '*') {
-            return isMatch(s, p.substr(2)) || (first_match && isMatch(s.substr(1), p));
-        } else {
-            return first_match && isMatch(s.substr(1), p.substr(1));
+        // if (p.size() >= 2 && p[1] == '*') {
+        //     return isMatch(s, p.substr(2)) || (first_match && isMatch(s.substr(1), p));
+        // } else {
+        //     return first_match && isMatch(s.substr(1), p.substr(1));
+        // }
+
+        if (s.empty() || p.empty()) return false;
+
+        // state defination
+        // dp[i][j] 表示 s的前i个是否能被p的前j个匹配
+        int m = s.size();
+        int n = p.size();
+        bool dp[m + 1][n + 1];
+
+        // init state
+        // s和p都为空, 则匹配
+        dp[0][0] = true;
+        for (int j = 2; j <= n; j++) {
+            // p[j-1] 为字符‘*’可以把j-2和j-1处的字符删去
+            // 只有[0, j-3] 都为true才可以
+            // 因此dp[j-2]也要为true, 才可以说明前j个为true
+            dp[0][j] = dp[0][j - 2] && p[j - 1] == '*';
         }
+
+        // state function
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // state function
+                // if (s[i - 1] == p[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+                // if (p[j - 1] == '.') dp[i][j] = dp[i - 1][j - 1];
+                if (s[i - 1] == p[j - 1] || p[j - 1] == '.') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                if (p[j - 1] == '*') {
+                    // 前一个字符p[j-1]匹配不上, 比如(ab, abc*)
+                    // a* only counts as empty
+                    dp[i][j] = dp[i][j - 2] ||
+                               dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.');
+                }
+            }
+        }
+        return dp[m][n];
     }
 };
 // @lc code=end
-

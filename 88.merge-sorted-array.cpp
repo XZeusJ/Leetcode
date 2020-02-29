@@ -40,12 +40,6 @@
 class Solution {
    public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        // special case: no elements in nums1
-        if (m == 0) {
-            swap(nums1, nums2);
-            return;
-        }
-
         // two end pointers for nums1 and nums2
         int p1 = m - 1;
         int p2 = n - 1;

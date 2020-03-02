@@ -36,7 +36,7 @@
 // @lc code=start
 class Solution {
    public:
-    void helper(int n, int k, int s, vector<int>& out, vector<vector<int>>& res) {
+    void helper(int n, int k, int begin, vector<int>& out, vector<vector<int>>& res) {
         // if (res.size() > k || res.size() + n - s + 1 < k) {
         //     return;
         // }
@@ -45,11 +45,11 @@ class Solution {
             return;
         }
 
-        out.push_back(s);
-        helper(n, k, s + 1, out, res);
-        out.pop_back();
-
-        helper(n, k, s + 1, out, res);
+        for (int i = begin; i <= n - (k - out.size()) + 1; i++) {
+            out.push_back(i);
+            helper(n, k, i + 1, out, res);
+            out.pop_back();
+        }
     }
 
     vector<vector<int>> combine(int n, int k) {

@@ -54,45 +54,31 @@
 
 // @lc code=start
 class Solution {
-   private:
-    bool helper(vector<bool>& vis, vector<int>& result, int& no, int target) {
-        if (result.size() == vis.size()) {
-            // boundry case
-            if (++no == target) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < vis.size(); i++) {
-            // choose unvisited number each turn
-            if (vis[i]) continue;
-            // choose current numbet
-            vis[i] = true;
-            result.push_back(i + 1);
-            // solve sub-problem by recursion
-            bool next = helper(vis, result, no, target);
-            if (next) return true;
-            // reform context when backtrack former problem
-            result.pop_back();
-            vis[i] = false;
-        }
-        return false;
-    }
-
    public:
     string getPermutation(int n, int k) {
-        vector<bool> vis(n, false);
-        vector<int> result;
-        int no = 0;
-        helper(vis, result, no, k);
+        string res;
+        string tmp;
+        vector<bool> used(n+1);
 
-        string ans;
-        for (auto n : result) {
-            ans += to_string(n);
+        backtrack(used, tmp, n, k, res);
+        return res;
+    }
+    void backtrack(vector<bool>& used, string& tmp, int n, int& k, string& res) {
+        if (tmp.size() == n) {
+            k--;
+            if (k == 0) strcpy(res, tmp);
+            return;
         }
-        return ans;
+
+        for (int i = 1; i <= n; i++) {
+            if (used[i]) continue;
+
+            tmp.push_back(i);
+            used[i] = true;
+            backtrack(used, tmp, n, k, res);
+            tmp.pop_back();
+            used[i] = false;
+        }
     }
 };
 // @lc code=end

@@ -38,23 +38,31 @@
 
 // @lc code=start
 class Solution {
-   private:
-    int m;
-    int n;
-    // bool* visited;
-
    public:
-    bool dfs(int x, int j, string word, bool visited, )
+    bool backtrack(int x, int y, int curLen, string word, vector<vector<char>>& board) {
+        if (board[x][y] != word[curLen]) return false;
+
+        if (word.size() - 1 == curLen) return true;
+
+        char tmp    = board[x][y];
+        board[x][y] = '-';
+        curLen++;
+        if ((0 < x && backtrack(x - 1, y, curLen, word, board))
+        ||  (0 < y && backtrack(x, y - 1, curLen, word, board))
+        ||  (x < board.size() - 1 && backtrack(x + 1, y, curLen, word, board))
+        ||  (y < board[0].size() -1 && backtrack(x, y + 1, curLen, word, board))) {
+            return true;
+        }
+        board[x][y] = tmp;
+        return false;
+    }
 
     bool exist(vector<vector<char>>& board, string word) {
         int m = board.size(), n = board[0].size();
-        bool visited[m][n];
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                visited[i][j] = true;
-                if (dfs(i, j, word, visited, board)) return true;
-                visited[i][j] = false;
+                if (backtrack(i, j, 0, word, board)) return true;
             }
         }
         return false;

@@ -74,7 +74,7 @@ class Solution {
             else
                 right = mid - 1;
         }
-        return zui
+        return -1;
     }
 };
 // @lc code=end

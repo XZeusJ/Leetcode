@@ -50,7 +50,9 @@ class Solution {
         int l = 0, r = nums.size() - 1;
         while (l < r) {
             int m = (l + r) >> 1;
-            if (nums[m] < nums[r])  // 要找最小值, 只能中数比右端数
+            if (nums[m] == nums[r])
+                r--;
+            else if (nums[m] < nums[r])  // 要找最小值, 只能中数比右端数
                 r = m;
             else
                 l = m + 1;

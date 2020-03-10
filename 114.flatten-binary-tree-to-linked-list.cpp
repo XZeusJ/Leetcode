@@ -56,11 +56,15 @@
 class Solution {
    public:
     void flatten(TreeNode* root) {
+        if (root ==  NULL) return;
+
+        flatten(root->left);
+        
+        TreeNode* tmp = root->right;
+        root->right = root->left;
+        root->left = NULL;
+        root->right->right = tmp;
+
     }
 };
 // @lc code=end
-
-TreeNode* tmp      = root->right;
-root->right        = root->left;
-root->left         = NULL;
-root->right->right = tmp;

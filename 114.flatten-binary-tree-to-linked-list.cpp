@@ -54,17 +54,25 @@
  * };
  */
 class Solution {
+   private:
+    TreeNode* last = NULL;
+
    public:
-    void flatten(TreeNode* root) {
-        if (root ==  NULL) return;
+    void
+    flatten(TreeNode* root) {
+        if (root == NULL) return;
 
+        // 前序遍历
+        // 注意更新last节点, 包括更新左右子树
+        if (last != NULL) {
+            last->left = NULL;
+            last->right = root;
+        }
+        last = root;
+        // 注意备份右子节点, 规避下一节点篡改
+        TreeNode* copyRight = root->right;
         flatten(root->left);
-        
-        TreeNode* tmp = root->right;
-        root->right = root->left;
-        root->left = NULL;
-        root->right->right = tmp;
-
+        flatten(copyRight);
     }
 };
 // @lc code=end

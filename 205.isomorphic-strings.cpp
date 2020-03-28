@@ -47,24 +47,20 @@
 
 // @lc code=start
 using namespace std;
-class Solution {
-   public:
-    bool isIsomorphic(std::string s, std::string t) {
+class Solution
+{
+public:
+    bool isIsomorphic(std::string s, std::string t)
+    {
         int m1[256] = {0}, m2[256] = {0}, len = s.size();
-        showA(m1, 256);
-        for (int i= 0; i<len; i++) {
-            if (m1[s[i]] != m2[t[i]]) return false;
-            m1[s[i]] = m2[t[i]] = i+1;
+        for (int i = 0; i < len; i++)
+        {
+            if (m1[s[i]] != m2[t[i]])
+                return false;
+            m1[s[i]] = m2[t[i]] = i + 1;
         }
 
         return true;
-    }
-
-    void showA(int a[], int size) {
-        for (int i = 0; i < size-1; i++) {
-            cout << a[i] << ' ';
-        }
-        cout << endl;
     }
 };
 // @lc code=end

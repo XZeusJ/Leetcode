@@ -65,6 +65,19 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        bool row0_flag = false;
+        bool col0_flag = false;
+
+        // 第一行是否有0
+        for (int j = 0; j < col; j++) {
+            if (matrix[0][j] == 0) {
+                row0_flag = true;
+                break;
+            }
+        }
+
         
     }
 };

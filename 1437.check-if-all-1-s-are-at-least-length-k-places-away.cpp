@@ -65,32 +65,19 @@
 class Solution {
    public:
     bool kLengthApart(vector<int>& nums, int k) {
-        int cnt = 0;
-        int minspace = 1e9;
-
-        int left = 0, right = 0;
-        
-
-        nums.insert(nums.begin(), 1);
-        nums.push_back(1);
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums[i - 1] == 0 && nums[i] == 0) {
-                cnt++;
-            }
-            if (nums[i - 1] == 0 && nums[i] == 1) {
-                minspace = min(minspace, cnt);
+        int cnt = k;
+        for (int i = 0; i<nums.size(); i++) {
+            if (nums[i] == 1) {
+                if (cnt <k) {
+                    return false;
+                }
                 cnt = 0;
             }
-            if (nums[i - 1] == 1 && nums[i] == 0) {
+            else {
                 cnt++;
             }
-            if (nums[i - 1] == 1 && nums[i] == 1) {
-            }
-
-            cout << cnt << " " << minspace << endl;
         }
-
-        return minspace >= k ? true : false;
+        return true;
     }
 };
 // @lc code=end

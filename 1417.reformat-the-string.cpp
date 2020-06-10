@@ -79,18 +79,28 @@
 class Solution {
    public:
     string reformat(string s) {
-        string num = "", cha = "";
+        string b = "", a = "";
 
         for (auto& c : s) {
-            if (c - 'a' <= 122 && c - 'a' >= 97) {
-                cha += c;
+            if (isalpha(c)) {
+                a += c;
             } else {
-                num += c;
+                b += c;
             }
         }
 
-        if (abs(num.size() - cha.size()) >= 1) return "";
+        if (a.size() < b.size()) {
+            swap(a, b);
+        }
+        if (a.size() - b.size() > 1) return {};
 
+        string ans = "";
+        for (int i = 0; i < a.size(); i++) {
+            ans += a[i];
+            if (i >= b.size()) continue;
+            ans += b[i];
+        }
+        return ans;
     }
 };
 // @lc code=end

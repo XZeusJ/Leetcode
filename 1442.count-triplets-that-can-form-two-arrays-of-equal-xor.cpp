@@ -77,10 +77,21 @@
 
 // @lc code=start
 class Solution {
-public:
+   public:
     int countTriplets(vector<int>& arr) {
-        
+        int res = 0;
+        int len = arr.size();
+        int temp;
+        for (int i = 0; i < len; i++) {
+            temp = arr[i];
+            for (int k = i + 1; k < len; k++) {
+                temp ^= arr[j];
+                if (temp == 0) {
+                    res += k - i;
+                }
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
-
